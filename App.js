@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     width:'80%',
     fontSize: 30,
     marginTop: 30,
-    borderBottonColor: 	'	#7CFC00'
+    borderBottonColor: 	'#7CFC00'
   },
   txtBotao:{
     fontSize:20,
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
      fontSize: 20,
      textAlign: 'center'
   },
-    image: {
+  image: {
       flex: 1,
-      justifyContent: "center"
-    }
+      textAlign: 'center'
+  },
+});
