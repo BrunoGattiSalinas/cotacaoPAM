@@ -1,90 +1,82 @@
+
 import React,{useState} from 'react';
-import { ImageBackground, StyleSheet, Text, View, TextInput, TouchableOpacity, Touchable } from 'react-native';
-import Cep from './components/Cep';
+import { ImageBackground, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Api from './components/Api';
+import Cotacao from './components/Cotacao';
 
-const image = {uri: "https://st.depositphotos.com/1001564/2470/i/600/depositphotos_24704059-stock-photo-background.jpg"}
-
+const image = { uri: "https://static.vecteezy.com/ti/fotos-gratis/p2/829118-dinheiro-fundo-foto.jpg" };
 
 export default function App() {
-  const [cep, setCep] = useState("");
-  const [inputCep, setInputCep] = useState(0);
+  const[real, setReal] = useState("");
 
-  
-  async function buscaCep(){
-    const response = await Api.get('ws/'+inputCep+'/json/');
-    setCep(response.data);
-  }
+  async function ParaReal(){
+    const response = await Api.get('json/last/USD-BRL');
+    setReal(response.data.USDBRL);
+}
 
   return (
     <View style={styles.container}>
-
-<ImageBackground style={{
-position: "absolute",
-height: '100%',
-width: '100%'
-}}source={image}>
-
-</ImageBackground>
+      <ImageBackground  style={{
+            position: "absolute",
+            height: '100%',
+            width: '100%'
+          }}source={image}>
+    </ImageBackground>
       <View style={styles.bloco}>
-      <Text style={styles.txt}>Digite seu CEP: </Text>
+        <Text style={styles.txt}>Cotação de Moedas</Text>
+      
+        <TouchableOpacity
+          style={styles.botao}
+          onPress={ParaReal}
+        >
+          <Text style={styles.txtBotao}> Dólar para real </Text>
+        </TouchableOpacity>
 
-      <TextInput
-        placeholder='ex: 11740000'
-        keyboardType='numeric'
-        style={styles.input}
-        onChangeText={(data)=>setInputCep(data)}
-        />
-        
-      <TouchableOpacity
-      style={styles.botao}
-      onPress={buscaCep}
-      >
-        <Text style={styles.txtBotao}> Buscar </Text>
-      </TouchableOpacity>
 
-      <Cep data={cep} />
-     </View>
-   </View>
+        <Cotacao data ={real} />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  bloco:{
+
+  bloco: {
     width:'100%',
-    alignItens: 'center',
+    alignItems: 'center',
   },
   texto:{
-    fontSize: 20,
+    fontSize:20,
+    color: '#000'
   },
   input:{
-    width: '80%',
-    marginLeft:'5%',
-    borderBottomWidth: 2,
+    width:'80%',
+    marginLeft:'10%',
+    borderColor: 'purple',
+    borderBottomWidth:2,
     marginTop: 20,
     fontSize: 30
   },
   botao:{
     width:'80%',
     fontSize: 30,
-    marginTop: 30,
-    borderBottonColor: 	'#7CFC00'
+    marginTop:30,
+    color: '#8b008b'
   },
   txtBotao:{
     fontSize:20,
-    textAlign: 'center'
+    textAlign:'center',
+    color: '#000'
   },
   txt:{
-     fontSize: 20,
-     textAlign: 'center'
+    fontSize:20,
+    textAlign:'center',
+    color: '#000'
   },
-  image: {
-      flex: 1,
-      textAlign: 'center'
-  },
-});
+});     
